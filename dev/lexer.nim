@@ -1,10 +1,4 @@
-proc read_file(file_path: string): string =
-  var f: File = open(file_path, FileMode.fmRead)
-  defer:
-    close(f)
-  result = f.readAll()
-
-proc lex(src: string): seq[string] =
+proc lex* (src: string): seq[string] =
   const separators: array[0..10, char] = [' ', '\n', '.', '(', ')', '{', '}', '\'', '\"', '=', ':']
   const skippedCharacters: array[0..0, char] = [' ']
   var tokens: seq[string] = @[]
@@ -30,8 +24,3 @@ proc lex(src: string): seq[string] =
       if i == len(src) - 1:
         tokens.add(token)
   return tokens
-
-let src = read_file("./dev/hello_world.relsis")
-let tokens = lex(src)
-for token in tokens:
-  echo token
