@@ -1,0 +1,53 @@
+[
+    {
+        "parent_id": "root",
+        "child_id": "id_1",
+        "syntax": {
+            "type": "var_def",
+            "variables": {
+                "var_name": "a",
+                "var_type": "int",
+                "value": "1"
+            }
+        },
+        "original_code": "let a:int 1"
+    },
+    {
+        "parent_id": "root",
+        "child_id": "id_2",
+        "syntax": {
+            "type": "var_def",
+            "variables": {
+                "var_name": "b",
+                "var_type": "int",
+                "value": "2"
+            }
+        },
+        "original_code": "let b:int 2"
+    },
+    {
+        "parent_id": "root",
+        "child_id": "id_3",
+        "syntax": {
+            "type": "var_def",
+            "variables": {
+                "var_name": "b",
+                "var_type": "int",
+                "value": "2"
+            }
+        },
+        "original_code": "print(a)"
+    },
+    {
+        "parent_id": "root",
+        "child_id": "id_4",
+        "syntax": {
+            "type": "exec_func",
+            "variables": {
+                "func_name": "print",
+                "args": ["a"]
+            }
+        },
+        "original_code": "print(a)"
+    }
+]
