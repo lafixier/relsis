@@ -12,7 +12,7 @@ proc read_file(file_path: string): string =
 proc compile(src: string) =
   let tokens: seq[string] = lex(src)
   let ast: Ast = parse(tokens)
-  echo tokens
+  # echo tokens
   # echo ast
 
 proc main() =
