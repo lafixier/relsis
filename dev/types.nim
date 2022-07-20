@@ -16,6 +16,3 @@ type Node* = ref object
 type Ast* = seq[Node]
 
 type Sentence* = string
-
-type Lexer* = ref object
-  separators = a
