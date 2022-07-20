@@ -1,26 +1,38 @@
-proc lex* (src: string): seq[string] =
-  const separators: array[0..10, char] = [' ', '\n', '.', '(', ')', '{', '}', '\'', '\"', '=', ':']
-  const skippedCharacters: array[0..0, char] = [' ']
-  var tokens: seq[string] = @[]
-  var token = ""
-  var isInString = false
-  for i, character in src:
+type Lexer* = ref object
+  src: string
+  separators: array[0..10, char]
+  skippedCharacters: array[0..0, char]
+  tokens: seq[string]
+  isInString: bool
+  token: string
+
+proc init(lexer: Lexer) =
+  lexer.separators = [' ', '\n', '.', '(', ')', '{', '}', '\'', '\"', '=', ':']
+  lexer.skippedCharacters = [' ']
+  lexer.tokens = @[]
+  lexer.token = ""
+  lexer.isInString = false
+  lexer.src = ""
+
+proc lex*(lexer: Lexer, src: string): seq[string] =
+  lexer.init()
+  for i, character in lexer.src:
     if character == '"':
-      if isInString:
-        isInString = false
-        token = token & character
-        tokens.add(token)
-        token = ""
+      if lexer.isInString:
+        lexer.isInString = false
+        lexer.token = lexer.token & character
+        lexer.tokens.add(lexer.token)
+        lexer.token = ""
         continue
       else:
-        isInString = true
-    if separators.find(character) != -1 and not isInString:
-        tokens.add(token)
-        token = ""
-        if skippedCharacters.find(character) == -1:
-          tokens.add(character.repr())
+        lexer.isInString = true
+    if lexer.separators.find(character) != -1 and not lexer.isInString:
+      lexer.tokens.add(lexer.token)
+      lexer.token = ""
+      if lexer.skippedCharacters.find(character) == -1:
+        lexer.tokens.add(character.repr())
     else:
-      token = token & character
-      if i == len(src) - 1:
-        tokens.add(token)
-  return tokens
+      lexer.token = lexer.token & character
+      if i == len(lexer.src) - 1:
+        lexer.tokens.add(lexer.token)
+  return lexer.tokens
