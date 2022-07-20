@@ -1,14 +1,23 @@
 import types
 
 
-proc divideIntoSentences(tokens: seq[string]): seq[Sentence] =
-  let sentences: seq[Sentence] = @[]
-  for token in tokens:
+type Parser* = ref object
+  tokens: seq[string]
+  ast: Ast
+  sentences: seq[Sentence]
+
+proc init(parser: Parser) =
+  parser.tokens = @[]
+  parser.ast = @[]
+  parser.sentences = @[]
+
+proc divideIntoSentences(parser: Parser) =
+  for token in parser.tokens:
     echo token
-  result = sentences
 
 
-proc parse* (tokens: seq[string]): Ast =
-  let ast: Ast = @[]
-  let sentences: seq[Sentence] = divideIntoSentences(tokens)
-  result = ast
+proc parse*(parser: Parser, tokens: seq[string]): Ast =
+  parser.init()
+  parser.tokens = tokens
+  parser.divideIntoSentences()
+  return parser.ast
