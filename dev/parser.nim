@@ -15,7 +15,6 @@ proc divideIntoSentences(parser: Parser) =
   for token in parser.tokens:
     echo token
 
-
 proc parse*(parser: Parser, tokens: seq[string]): Ast =
   parser.init()
   parser.tokens = tokens
