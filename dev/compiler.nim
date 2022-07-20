@@ -10,8 +10,10 @@ proc read_file(file_path: string): string =
   result = f.readAll()
 
 proc compile(src: string) =
-  let tokens: seq[string] = lex(src)
-  let ast: Ast = parse(tokens)
+  let lexer = Lexer()
+  let parser = Parser()
+  let tokens: seq[string] = lexer.lex(src)
+  let ast: Ast = parser.parse(tokens)
   # echo tokens
   # echo ast
 
