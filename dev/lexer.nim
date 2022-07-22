@@ -31,7 +31,7 @@ proc lex*(lexer: Lexer, src: string): seq[string] =
       lexer.tokens.add(lexer.token)
       lexer.token = ""
       if lexer.skippedCharacters.find(character) == -1:
-        lexer.tokens.add(character.repr())
+        lexer.tokens.add("" & character)
     else:
       lexer.token = lexer.token & character
       if i == len(lexer.src) - 1:
