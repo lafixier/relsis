@@ -12,8 +12,17 @@ proc init(parser: Parser) =
   parser.sentences = @[]
 
 proc divideIntoSentences(parser: Parser) =
+  var sentence: Sentence = @[]
   for token in parser.tokens:
-    echo token
+    case token
+    of "":
+      continue
+    of "\n":
+      echo sentence
+      parser.sentences.add(@[sentence])
+      sentence = @[]
+    else:
+      sentence.add(token)
 
 proc parse*(parser: Parser, tokens: seq[string]): Ast =
   parser.init()
