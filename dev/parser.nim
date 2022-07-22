@@ -18,7 +18,6 @@ proc divideIntoSentences(parser: Parser) =
     of "":
       continue
     of "\n":
-      echo sentence
       parser.sentences.add(@[sentence])
       sentence = @[]
     else:
