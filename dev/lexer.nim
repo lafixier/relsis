@@ -16,6 +16,7 @@ proc init(lexer: Lexer) =
 
 proc lex*(lexer: Lexer, src: string): seq[string] =
   lexer.init()
+  lexer.src = src
   for i, character in lexer.src:
     if character == '"':
       if lexer.isInString:
