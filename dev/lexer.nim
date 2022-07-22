@@ -3,7 +3,7 @@ type Lexer* = ref object
   separators: array[0..10, char]
   skippedCharacters: array[0..0, char]
   tokens: seq[string]
-  isInString: bool
+  isInQuotes: bool
   token: string
 
 proc init(lexer: Lexer) =
@@ -11,7 +11,7 @@ proc init(lexer: Lexer) =
   lexer.skippedCharacters = [' ']
   lexer.tokens = @[]
   lexer.token = ""
-  lexer.isInString = false
+  lexer.isInQuotes = false
   lexer.src = ""
 
 proc lex*(lexer: Lexer, src: string): seq[string] =
@@ -19,15 +19,15 @@ proc lex*(lexer: Lexer, src: string): seq[string] =
   lexer.src = src
   for i, character in lexer.src:
     if character == '"':
-      if lexer.isInString:
-        lexer.isInString = false
+      if lexer.isInQuotes:
+        lexer.isInQuotes = false
         lexer.token = lexer.token & character
         lexer.tokens.add(lexer.token)
         lexer.token = ""
         continue
       else:
-        lexer.isInString = true
-    if lexer.separators.find(character) != -1 and not lexer.isInString:
+        lexer.isInQuotes = true
+    if lexer.separators.find(character) != -1 and not lexer.isInQuotes:
       lexer.tokens.add(lexer.token)
       lexer.token = ""
       if lexer.skippedCharacters.find(character) == -1:
