@@ -1,0 +1,3 @@
+{
+    "def": "def <var_name | [_A-Za-z](\\d|[_A-Za-z])*> : = <value>"
+}
